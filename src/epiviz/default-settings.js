@@ -9,12 +9,6 @@
  */
 epiviz.Config.SETTINGS = {
 
-  // PHP/MySQL Data
-
-  dataServerLocation: '', // TODO: Fill in
-
-  chartSaverLocation: 'src/chart_saving/save_svg.php',
-
   // Navigation settings
 
   zoominRatio: 0.8,
@@ -23,22 +17,34 @@ epiviz.Config.SETTINGS = {
 
   navigationDelay: 0,
 
-  // Plug-ins
+  // Data retrieval
 
+  dataServerLocation: 'http://epiviz.cbcb.umd.edu/data/', // TODO: Fill in
+  chartSaverLocation: 'src/chart_saving/save_svg.php',
   dataProviders: [
-    sprintf('epiviz.data.WebServerDataProvider,%s,%s',
+    [
+      // fully qualified class name for the class
+      'epiviz.data.WebServerDataProvider',
       epiviz.Config.DEFAULT_DATA_PROVIDER_ID,
-      '') // TODO: Fill in
+      'http://epiviz.cbcb.umd.edu/data/main.php'
+    ]
   ],
 
+  // This is the data provider that handles workspaces; it can be different from the one getting all the other data:
   workspacesDataProvider: sprintf('epiviz.data.WebServerDataProvider,%s,%s',
     'workspaces_provider',
-    ''), // TODO: Fill in
+    'http://epiviz.cbcb.umd.edu/data/main.php'), // TODO: Fill in
 
+  // For datasources with hierarchies, the cache must be disabled (Epiviz will crash otherwise)
+  useCache: true,
+
+  // Every n milliseconds, the cache will free up any data associated with parts of the genome not recently visited
   cacheUpdateIntervalMilliseconds: 30000,
 
+  // For genes search box:
   maxSearchResults: 12,
 
+  // Epiviz will only be able to show any of the charts in this list; if it's not registered here, you will not see it in the UI
   chartTypes: [
     'epiviz.plugins.charts.BlocksTrackType',
     'epiviz.plugins.charts.LineTrackType',
@@ -47,11 +53,13 @@ epiviz.Config.SETTINGS = {
     'epiviz.plugins.charts.GenesTrackType',
     'epiviz.plugins.charts.HeatmapPlotType',
     'epiviz.plugins.charts.LinePlotType',
-    'epiviz.plugins.charts.StackedLinePlotType'
+    'epiviz.plugins.charts.StackedLinePlotType',
+    'epiviz.ui.charts.tree.IcicleType'
   ],
 
   // Chart default settings
 
+  // Se decorations for individual charts or for groups of charts here
   chartSettings: {
     default: {
       colors: 'd3-category10',
@@ -91,12 +99,24 @@ epiviz.Config.SETTINGS = {
       ]
     },
 
+    'data-structure': {
+      width: 800,
+      height: 300,
+      margins: new epiviz.ui.charts.Margins(20, 10, 10, 10),
+      colors: 'd3-category20',
+      decorations: [
+        'epiviz.ui.charts.tree.decoration.TogglePropagateSelectionButton',
+        'epiviz.ui.charts.decoration.HierarchyFilterCodeButton'
+      ]
+    },
+
     'epiviz.plugins.charts.GenesTrack': {
       height: 120,
       colors: 'genes-default'
     },
 
     'epiviz.plugins.charts.LineTrack': {
+      colors: 'epiviz-v2-bright',
       decorations: [
         'epiviz.ui.charts.decoration.ChartGroupByMeasurementsCodeButton',
         'epiviz.ui.charts.decoration.ChartColorByMeasurementsCodeButton'
@@ -108,7 +128,10 @@ epiviz.Config.SETTINGS = {
     },
 
     'epiviz.plugins.charts.ScatterPlot': {
-      margins: new epiviz.ui.charts.Margins(15, 50, 50, 15)
+      margins: new epiviz.ui.charts.Margins(15, 50, 50, 15),
+      decorations: [
+        'epiviz.ui.charts.decoration.ChartColorByRowCodeButton'
+      ]
     },
 
     'epiviz.plugins.charts.HeatmapPlot': {
@@ -156,28 +179,37 @@ epiviz.Config.SETTINGS = {
 
     },
     'epiviz.plugins.charts.LineTrack': {
-      step: 150,
-      showPoints: true,
+      step: 1,
+      showPoints: false,
       showLines: true,
-      pointRadius: 3,
+      pointRadius: 1,
       lineThickness: 2
     },
     'epiviz.plugins.charts.ScatterPlot': {
       circleRadiusRatio: 0.01
     },
     'epiviz.plugins.charts.HeatmapPlot': {
-      maxColumns: 120
+      colLabel: 'label',
+      maxColumns: 120,
+      clusteringAlg: 'agglomerative'
+    },
+    'epiviz.plugins.charts.StackedLinePlot': {
+      colLabel: 'label'
     }
   },
 
+  // When loading Epiviz for the first time, this is what it will show:
   defaultWorkspaceSettings: {
     name: epiviz.Config.DEFAULT_WORKSPACE_NAME,
     content: {
+      // This is the selected chromosome, start and end locations
       range: {
         seqName: 'chr11',
-        start: 99800000,
-        width: 3583180
+        start: 101407173,
+        width: 103922435
       },
+
+      // The initial measurements loaded in the workspace
       measurements: [
         {
           id: 'genes',
@@ -194,6 +226,8 @@ epiviz.Config.SETTINGS = {
           metadata: ['gene', 'entrez', 'exon_starts', 'exon_ends']
         }
       ],
+
+      // The initial charts on the initial workspace
       charts: {
         track: [
           {
@@ -212,6 +246,7 @@ epiviz.Config.SETTINGS = {
     }
   },
 
+  // For the heatmap clustering, register algorithms here:
   clustering: {
     algorithms: [
       'epiviz.ui.charts.transform.clustering.NoneClustering',
