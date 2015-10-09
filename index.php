@@ -215,8 +215,8 @@ if (array_key_exists('debug', $_GET) && $_GET['debug'] == 'true') {
     <!-- File upload: src/file-upload/webtoolkit.aim.js -->
 
     <!-- Google Closure -->
-    <script src="src/lib/closure/goog/base.js"></script>
-    <script src="src/lib/closure/goog/structs/collection.js"></script>
+    <script src="bower_components/google-closure-library/closure/goog/base.js"></script>
+    <script src="bower_components/google-closure-library/closure/goog/structs/collection.js"></script>
 
     <!-- EpiViz framework -->
     <script src="src/epiviz/deferred/deferred.js"></script>
@@ -390,6 +390,11 @@ if (array_key_exists('debug', $_GET) && $_GET['debug'] == 'true') {
     <script src="src/epiviz/ui/charts/tree/icicle-type.js"></script>
 
     <script src="src/epiviz/ui/charts/tree/decoration/toggle-propagate-selection-button.js"></script>
+
+    <script src="bower_components/zlib.js/bin/zlib.min.js"></script>
+    <script src="bower_components/utils.js/utils.min.js"></script>
+    <script src="bower_components/bigwig.js/bigwig.min.js"></script>
+    <script src="src/epiviz/data/bigwig-data-provider.js"></script>
 
     <script src="src/epiviz/main.js"></script>
 
@@ -593,7 +598,7 @@ if (array_key_exists('debug', $_GET) && $_GET['debug'] == 'true') {
     <!-- Unimportant scripts -->
 
     <!-- Google Analytics -->
-    <script src="src/lib/google-analytics/google-analytics.js"></script>
+    <!--<script src="src/lib/google-analytics/google-analytics.js"></script>-->
   </body>
 
 </html>

@@ -25,7 +25,14 @@ epiviz.Config.SETTINGS = {
 
   // Plug-ins
 
-  dataProviders: [],
+  dataProviders: [
+    [
+      // fully qualified class name for the class
+      'epiviz.data.WebServerDataProvider',
+      epiviz.Config.DEFAULT_DATA_PROVIDER_ID,
+      'http://epiviz.cbcb.umd.edu/data/main.php'
+    ]
+  ],
 
   workspacesDataProvider: sprintf('epiviz.data.EmptyResponseDataProvider', 'empty', ''),
 

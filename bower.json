@@ -1,0 +1,40 @@
+{
+  "name": "epiviz",
+  "version": "4.0.0",
+  "authors": [
+    "Florin Chelaru <florinc@mit.edu>",
+    "Hector Corrada Bravo <hcorrada@umiacs.umd.edu>"
+  ],
+  "description": "EpiViz is a scientific information visualization tool for genetic and epigenetic data, used to aid in the exploration and understanding of correlations between various genome features.",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "epiviz",
+    "visualization",
+    "epigenomic"
+  ],
+  "license": "Artistic License 2.0",
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "google-closure-library": "git://github.com/google/closure-library.git#56712dfced32778fc8435a4bea6a2e422e5f03c1",
+    "d3": "~3.5.6",
+    "jquery": "~1.8.2",
+    "codemirror": "*",
+    "datatables": "~1.9.4",
+    "jquery.dynatree": "~1.2.4",
+    "farbtastic": "*",
+    "globalize": "~1.0.0",
+
+    "utils.js": "git://github.com/florin-chelaru/utils.js.git",
+    "bigwig.js": "git://github.com/florin-chelaru/bigwig.js.git"
+  },
+  "devDependencies": {
+    "qunit": "1.19.0",
+    "closure-compiler": "0.2.7",
+    "angular": "1.4.4"
+  }
+}

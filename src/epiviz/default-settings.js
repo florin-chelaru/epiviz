@@ -27,6 +27,20 @@ epiviz.Config.SETTINGS = {
       'epiviz.data.WebServerDataProvider',
       epiviz.Config.DEFAULT_DATA_PROVIDER_ID,
       'http://epiviz.cbcb.umd.edu/data/main.php'
+    ],
+    [
+      'epiviz.data.BigwigDataProvider',
+
+      // Id of data provider
+      'bigwig',
+
+      // Data sources and corresponding bigwig files
+      {
+        'E001-H3K4me1': 'http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E001-H3K4me1.pval.signal.bigwig',
+        'E001-H3K4me3': 'http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E001-H3K4me3.pval.signal.bigwig'
+      },
+      // Proxy:
+      'http://localhost/bigwig/test/partial.php'
     ]
   ],
 
