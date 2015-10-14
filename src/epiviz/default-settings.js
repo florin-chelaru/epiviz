@@ -22,12 +22,12 @@ epiviz.Config.SETTINGS = {
   dataServerLocation: 'http://epiviz.cbcb.umd.edu/data/', // TODO: Fill in
   chartSaverLocation: 'src/chart_saving/save_svg.php',
   dataProviders: [
-    [
+    /*[
       // fully qualified class name for the class
       'epiviz.data.WebServerDataProvider',
       epiviz.Config.DEFAULT_DATA_PROVIDER_ID,
       'http://epiviz.cbcb.umd.edu/data/main.php'
-    ],
+    ],*/
     [
       'epiviz.data.BigwigDataProvider',
 
@@ -36,11 +36,11 @@ epiviz.Config.SETTINGS = {
 
       // Data sources and corresponding bigwig files
       {
-        'E001-H3K4me1': 'http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E001-H3K4me1.pval.signal.bigwig',
-        'E001-H3K4me3': 'http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E001-H3K4me3.pval.signal.bigwig'
-      },
+        'E001-H3K4me1': 'http://localhost/E001-H3K4me1.pval.signal.bigwig',
+        'E001-H3K4me3': 'http://localhost/E001-H3K4me3.pval.signal.bigwig'
+      }//,
       // Proxy:
-      'http://localhost/bigwig/test/partial.php'
+      //'http://localhost/bigwig/test/partial.php'
     ]
   ],
 
@@ -50,7 +50,8 @@ epiviz.Config.SETTINGS = {
     'http://epiviz.cbcb.umd.edu/data/main.php'), // TODO: Fill in
 
   // For datasources with hierarchies, the cache must be disabled (Epiviz will crash otherwise)
-  useCache: true,
+  // The same goes for any kind of datasources where the exact index of items cannot be determined, like bigwig files
+  useCache: false,
 
   // Every n milliseconds, the cache will free up any data associated with parts of the genome not recently visited
   cacheUpdateIntervalMilliseconds: 30000,
@@ -225,7 +226,7 @@ epiviz.Config.SETTINGS = {
 
       // The initial measurements loaded in the workspace
       measurements: [
-        {
+        /*{
           id: 'genes',
           name: 'Genes',
           type: 'range',
@@ -238,13 +239,13 @@ epiviz.Config.SETTINGS = {
           minValue: null,
           maxValue: null,
           metadata: ['gene', 'entrez', 'exon_starts', 'exon_ends']
-        }
+        }*/
       ],
 
       // The initial charts on the initial workspace
       charts: {
         track: [
-          {
+          /*{
             id: 'track-genes-initial',
             type: 'epiviz.plugins.charts.GenesTrack',
             properties: { width: 837, height: 120,
@@ -253,7 +254,7 @@ epiviz.Config.SETTINGS = {
               colors: { id: 'genes-default' },
               customSettings: {}
             }
-          }
+          }*/
         ],
         plot: []
       }

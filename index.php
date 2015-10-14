@@ -217,6 +217,7 @@ if (array_key_exists('debug', $_GET) && $_GET['debug'] == 'true') {
     <!-- Google Closure -->
     <script src="bower_components/google-closure-library/closure/goog/base.js"></script>
     <script src="bower_components/google-closure-library/closure/goog/structs/collection.js"></script>
+    <script src="bower_components/google-closure-library/closure/goog/string/stringformat.js"></script>
 
     <!-- EpiViz framework -->
     <script src="src/epiviz/deferred/deferred.js"></script>

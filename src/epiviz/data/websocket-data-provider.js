@@ -177,6 +177,9 @@ epiviz.data.WebsocketDataProvider.prototype._onSocketMessage = function (msg) {
       case Action.WRITE_DEBUG_MSG: 
         this._writeDebugMsg(request);
         break;
+      case Action.DEMO:
+        alert(JSON.stringify(message));
+        break;
     }
   }
 };

@@ -147,7 +147,8 @@ epiviz.datatypes.MeasurementGenomicDataWrapper.prototype.size = function() {
   if (this._size !== null) { return this._size; }
 
   var firstGlobalIndex = this.globalStartIndex();
-  if (firstGlobalIndex == undefined) { return 0; }
+  // if (firstGlobalIndex == undefined) { return 0; }
+  if (firstGlobalIndex == undefined) { return this._container.rowData().size(); }
 
   var rows = this._container.rowData();
   var values = this._container.values(this._measurement);
