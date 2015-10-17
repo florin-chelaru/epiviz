@@ -44,7 +44,7 @@ epiviz.data.BigwigDataProvider = function(id, bigwigFiles, proxyEndpoint) {
   var self = this;
   u.each(this._dataSourceMap, function(ds, filesMap) {
     u.each(filesMap, function(label, uri) {
-      self._bigwigFiles[ds + '-' + label] = new bigwig.BigwigFile(uri, proxyEndpoint);
+      self._bigwigFiles[ds + '-' + label] = new bigwig.BigwigFile(uri, proxyEndpoint, 256);
     });
   });
 };
@@ -123,33 +123,39 @@ epiviz.data.BigwigDataProvider.prototype.getData = function(request, callback) {
       remaining = measurements.length;
 
       u.async.each(measurements, function(m) {
-        var file = self._bigwigFiles[m];
-        var ds = m.substr(0, m.indexOf('-'));
-        var deferred = new u.async.Deferred();
-        file.query(chr, start, end, { maxBases: 50000, maxItems: 1000 })
-          .then(function(records) {
-            var d = ret[ds];
-            if (d == undefined) {
-              d = {
-                rows: {
-                  start: records.map(function(r) { return r.start; }),
-                  end: records.map(function(r) { return r.end; })
-                },
-                cols: {},
-                globalStartIndex: 0
-              };
-              ret[ds] = d;
-            }
-            d.cols[m] = records.map(function(r) { return r.value(bigwig.DataRecord.Aggregate.MAX); });
-            if (d.cols[m].length < d.rows.start.length) {
-              d.rows.start = d.rows.start.slice(0, d.cols[m].length);
-              d.rows.end = d.rows.end.slice(0, d.cols[m].length);
-            } else if (d.cols[m].length > d.rows.start.length) {
-              d.cols[m] = d.cols[m].slice(0, d.rows.start.length);
-            }
-            deferred.callback();
-          });
-        return deferred;
+        return new Promise(function(resolve, reject) {
+          var file = self._bigwigFiles[m];
+          var ds = m.substr(0, m.indexOf('-'));
+          file.query(chr, start, end, {maxBases: 50000, maxItems: 1000})
+            .then(function (records) {
+              var d = ret[ds];
+              if (d == undefined) {
+                d = {
+                  rows: {
+                    start: records.map(function (r) {
+                      return r.start;
+                    }),
+                    end: records.map(function (r) {
+                      return r.end;
+                    })
+                  },
+                  cols: {},
+                  globalStartIndex: 0
+                };
+                ret[ds] = d;
+              }
+              d.cols[m] = records.map(function (r) {
+                return r.value(bigwig.DataRecord.Aggregate.MAX);
+              });
+              if (d.cols[m].length < d.rows.start.length) {
+                d.rows.start = d.rows.start.slice(0, d.cols[m].length);
+                d.rows.end = d.rows.end.slice(0, d.cols[m].length);
+              } else if (d.cols[m].length > d.rows.start.length) {
+                d.cols[m] = d.cols[m].slice(0, d.rows.start.length);
+              }
+              resolve();
+            });
+        });
       }).then(function() {
         callback(epiviz.data.Response.fromRawObject({
           requestId: request.id(),

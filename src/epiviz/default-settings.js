@@ -46,7 +46,8 @@ epiviz.Config.SETTINGS = {
         }
       },
       // Proxy:
-      'http://localhost/bigwig/test/partial.php'
+      //'http://localhost/bigwig/test/partial.php'
+      'http://epiviz-dev.cbcb.umd.edu/bigwig/partial.php'
     ]
   ],
 
