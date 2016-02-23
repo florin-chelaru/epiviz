@@ -403,7 +403,8 @@ if (array_key_exists('debug', $_GET) && $_GET['debug'] == 'true') {
 
     <script>
       caja.initialize({ cajaServer: 'https://caja.appspot.com/', debug: false });
-      epiviz.caja.run(<?php echo json_encode($settings_file); ?>, epiviz.caja.buildChartMethodContext()).done(function() {
+      epiviz.caja.chain([<?php echo json_encode($settings_file); ?>, 'src/epiviz/site-settings.js'], epiviz.caja.buildChartMethodContext()).done(function() {
+      //epiviz.caja.run(<?php echo json_encode($settings_file); ?>, epiviz.caja.buildChartMethodContext()).done(function() {
 
         var items;
 <?php
@@ -512,6 +513,7 @@ if (array_key_exists('debug', $_GET) && $_GET['debug'] == 'true') {
  ?>
       });
     </script>
+    <!--<script src="src/epiviz/site-settings.js"></script>-->
   </head>
   <body>
     <div class="ui-layout-north">

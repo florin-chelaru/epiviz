@@ -348,5 +348,3 @@ epiviz.data.Request.propagateHierarchyChanges = function(datasourceGroup, select
     selectedLevels: selectedLevels
   });
 };
-
-

@@ -65,6 +65,7 @@ epiviz.data.BigwigDataProvider.prototype.getData = function(request, callback) {
   var filesLabels = Object.keys(this._bigwigFiles);
   var files = filesLabels.map(function(label) { return self._bigwigFiles[label]; });
   switch (action) {
+
     case epiviz.data.Request.Action.GET_MEASUREMENTS:
       u.async.each(files, function(file) {
         return file.initialized;

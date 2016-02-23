@@ -22,34 +22,10 @@ epiviz.Config.SETTINGS = {
   dataServerLocation: 'http://epiviz.cbcb.umd.edu/data/', // TODO: Fill in
   chartSaverLocation: 'src/chart_saving/save_svg.php',
   dataProviders: [
-    /*[
-      // fully qualified class name for the class
-      'epiviz.data.WebServerDataProvider',
-      epiviz.Config.DEFAULT_DATA_PROVIDER_ID,
-      'http://epiviz.cbcb.umd.edu/data/main.php'
-    ],*/
-    [
-      'epiviz.data.BigwigDataProvider',
 
-      // Id of data provider
-      'bigwig',
-
-      // Data sources and corresponding bigwig files
-      {
-        'E001': {
-          'H3K4me1': 'http://localhost/E001-H3K4me1.pval.signal.bigwig',
-          'H3K4me3': 'http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E001-H3K4me3.pval.signal.bigwig',
-          'H3K9ac': 'http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E001-H3K9ac.pval.signal.bigwig',
-          'H3K9me3': 'http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E001-H3K9me3.pval.signal.bigwig',
-          'H3K27me3': 'http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E001-H3K27me3.pval.signal.bigwig',
-          'H3K36me3': 'http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E001-H3K36me3.pval.signal.bigwig'
-        }
-      },
-      // Proxy:
-      //'http://localhost/bigwig/test/partial.php'
-      'http://epiviz-dev.cbcb.umd.edu/bigwig/partial.php'
-    ]
   ],
+
+  // Proxy: 'http://localhost/bigwig/test/partial.php'
 
   // This is the data provider that handles workspaces; it can be different from the one getting all the other data:
   workspacesDataProvider: sprintf('epiviz.data.WebServerDataProvider,%s,%s',

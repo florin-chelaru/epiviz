@@ -452,7 +452,6 @@ epiviz.data.DataManager.prototype.propagateHierarchyChanges = function(chartVisC
   }
 };
 
-
 /**
  * @param {function(Array)} callback
  * @param {string} [filter]
